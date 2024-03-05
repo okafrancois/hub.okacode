@@ -1,6 +1,6 @@
 // js object to store public and private routes
 
-import { apiRoutes, pagesRoutes } from '@/schemas/routes'
+import { apiRoutes, pagesRoutes } from '@/schemas/app-routes'
 
 /**
  * An array of routes that are accessible to the public
@@ -31,4 +31,4 @@ export const apiAuthPrefix: apiRoutes = apiRoutes.base_auth
  * Routes that start with this prefix are used for api routes
  * @type {pagesRoutes}
  */
-export const DEFAULT_AUTH_REDIRECT: pagesRoutes = pagesRoutes.settings
+export const DEFAULT_AUTH_REDIRECT: pagesRoutes = pagesRoutes.base

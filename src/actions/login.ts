@@ -9,29 +9,26 @@ export const logUserIn = async (values: LoginInput) => {
   const validatedFields = LoginSchema.safeParse(values)
 
   if (!validatedFields.success) {
-    throw new Error('Invalid input')
+    return {
+      error: 'Invalid fields',
+    }
   }
 
   const { email, password } = validatedFields.data
 
   try {
-    const response = await signIn('credentials', {
+    await signIn('credentials', {
       email,
       password,
       redirectTo: DEFAULT_AUTH_REDIRECT,
     })
-
-    console.log(response)
-
-    return {
-      success: 'Logged in successfully',
-    }
   } catch (error) {
     if (error instanceof AuthError) {
-      if (error.type === 'CredentialsSignin') {
-        throw new Error(error.message)
-      } else {
-        throw new Error('An error occurred')
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return { error: 'Invalid credentials' }
+        default:
+          return { error: 'An error occurred' }
       }
     }
 

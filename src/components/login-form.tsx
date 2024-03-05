@@ -19,9 +19,8 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
-import { register } from '@/actions/register'
-import { pagesRoutes } from '@/schemas/routes'
-import { login, logUserIn } from '@/actions/login'
+import { pagesRoutes } from '@/schemas/app-routes'
+import { logUserIn } from '@/actions/login'
 
 export function LoginForm() {
   const [success, setSuccess] = React.useState<string | undefined>()
@@ -114,7 +113,7 @@ export function LoginForm() {
                   type={'submit'}
                   className={cn('w-full')}
                 >
-                  Create an account
+                  Login
                 </Button>
                 <Link href={pagesRoutes.register}>
                   {"Don't have an account ?"}

@@ -9,6 +9,8 @@ function initializeRoutes() {
 
   const files = fs.readdirSync('src/app', { withFileTypes: true })
 
+  console.log(files)
+
   files.forEach((file) => {
     if (file.isDirectory()) {
       const subFiles = fs.readdirSync(path.join('src/app', file.name), {
@@ -33,15 +35,18 @@ const watcher = chokidar.watch('src/app', {
   ignored: /(^|[\/\\])\../, // ignore dotfiles
   persistent: true,
 })
+
+const routes = {
+  apiRoutes: {},
+  pagesRoutes: {},
+}
 function updateRoutes(filePath) {
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.error(`Erreur lors de la lecture du fichier ${filePath}: ${err}`)
-      return
     }
 
     // Initialize the routes object with the existing enums
-    const routes = initializeRoutes()
 
     // Split the file path into segments
     const pathSegments = filePath.split(path.sep)
@@ -76,7 +81,7 @@ function updateRoutes(filePath) {
       routes.pagesRoutes[pageName] = pageValue
     }
 
-    // Mettre à jour les enums dans schemas/routes.ts (à adapter en fonction de la structure de vos enums)
+    // Mettre à jour les enums dans schemas/app-routes.ts (à adapter en fonction de la structure de vos enums)
     updateEnums(routes)
   })
 }
@@ -97,8 +102,8 @@ function updateEnums(routes) {
   // Combine the enums into one string
   const enumsString = `${apiRoutesEnum}\n\n${pagesRoutesEnum}`
 
-  // Write the new enums to the routes.ts file
-  fs.writeFile('src/schemas/routes.ts', enumsString, 'utf8', (err) => {
+  // Write the new enums to the app-routes.ts file
+  fs.writeFile('src/schemas/app-routes-test.ts', enumsString, 'utf8', (err) => {
     if (err) {
       console.error(
         `Erreur lors de l'écriture dans le fichier src/schemas/routes.ts: ${err}`

@@ -2,7 +2,7 @@ import { LoginForm } from '@/components/login-form'
 import { cn } from '@/lib/utils'
 import { buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
-import { pagesRoutes } from '@/schemas/routes'
+import { pagesRoutes } from '@/schemas/app-routes'
 
 export default function LoginPage() {
   return (

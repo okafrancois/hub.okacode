@@ -20,7 +20,7 @@ import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
 import { register } from '@/actions/register'
-import { pagesRoutes } from '@/schemas/routes'
+import { pagesRoutes } from '@/schemas/app-routes'
 
 export function RegisterForm() {
   const [success, setSuccess] = React.useState<string | undefined>()

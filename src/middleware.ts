@@ -6,7 +6,7 @@ import {
   authRoutes,
   publicRoutes,
 } from '@/routes'
-import { pagesRoutes } from '@/schemas/routes'
+import { pagesRoutes } from '@/schemas/app-routes'
 
 const { auth } = NextAuth(authConfig)
 export default auth((req) => {
