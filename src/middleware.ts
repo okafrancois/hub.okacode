@@ -1,9 +1,9 @@
 import NextAuth from 'next-auth'
 import authConfig from '@/auth.config'
 import {
-  DEFAULT_AUTH_REDIRECT,
   apiAuthPrefix,
   authRoutes,
+  DEFAULT_AUTH_REDIRECT,
   publicRoutes,
 } from '@/routes'
 import { pagesRoutes } from '@/schemas/app-routes'
@@ -12,10 +12,6 @@ const { auth } = NextAuth(authConfig)
 export default auth((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
-
-  console.log('isLoggedIn', isLoggedIn)
-  console.log('nextUrl', nextUrl.pathname)
-
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname as pagesRoutes)
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname as pagesRoutes)
