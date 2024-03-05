@@ -17,12 +17,11 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FormError } from '@/components/form-error'
-import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
 import { pagesRoutes } from '@/schemas/app-routes'
-import { logUserIn } from '@/actions/login'
 import SocialAuth from '@/components/social-auth'
 import { useSearchParams } from 'next/navigation'
+import { logUserIn } from '@/actions/auth'
 
 export function LoginForm() {
   const searchParams = useSearchParams()
@@ -30,7 +29,6 @@ export function LoginForm() {
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'You already have an account with this email.'
       : ''
-  const [success, setSuccess] = React.useState<string | undefined>()
   const [error, setError] = React.useState<string | undefined>()
   const [isPending, startTransition] = React.useTransition()
 
@@ -42,14 +40,12 @@ export function LoginForm() {
     },
   })
   async function onSubmit(values: LoginInput) {
+    setError(undefined)
+
     startTransition(() => {
-      logUserIn(values)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error: Error) => {
-          setError(error.message)
-        })
+      logUserIn(values).catch((error: Error) => {
+        setError(error.message)
+      })
     })
   }
 
@@ -70,6 +66,7 @@ export function LoginForm() {
               className={'space-y-6'}
               onSubmit={form.handleSubmit(onSubmit)}
             >
+              <SocialAuth />
               <div className="space-y-4">
                 <FormField
                   control={form.control}
@@ -112,7 +109,6 @@ export function LoginForm() {
               </div>
 
               <FormError message={error ?? urlError} />
-              <FormSuccess message={success} />
 
               <div className="form-actions flex flex-col items-center space-y-4">
                 <Button
@@ -126,7 +122,6 @@ export function LoginForm() {
                   {"Don't have an account ?"}
                 </Link>
               </div>
-              <SocialAuth />
             </form>
           </Form>
         </CardContent>

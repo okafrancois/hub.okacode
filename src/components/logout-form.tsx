@@ -1,10 +1,11 @@
-import { auth, signOut } from '@/auth'
+import { signOut } from '@/auth'
+import { getCurrentUser } from '@/lib/auth'
 
 export default async function LogoutForm() {
-  const session = await auth()
+  const user = await getCurrentUser()
   return (
     <div>
-      {JSON.stringify(session)}
+      {JSON.stringify(user)}
       <form
         action={async () => {
           'use server'

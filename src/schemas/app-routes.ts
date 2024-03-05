@@ -10,5 +10,7 @@ export enum pagesRoutes {
   register = '/auth/register',
   login = '/auth/login',
   auth_error = '/auth/error',
-  settings = '/settings',
+  user_settings = '/user-settings',
+  user_settings_account = '/user-settings/account',
+  user_settings_notifications = '/user-settings/notifications',
 }

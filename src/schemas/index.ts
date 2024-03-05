@@ -1,5 +1,27 @@
 import * as z from 'zod'
 
+export const UserSettingsSchema = z.object({
+  email: z
+    .string({
+      required_error: 'Email is required',
+    })
+    .email({
+      message: 'Invalid email address',
+    }),
+  name: z.string({
+    required_error: 'Name is required',
+  }),
+  image: z
+    .string({
+      required_error: 'Image is required',
+    })
+    .url({
+      message: 'Invalid URL',
+    }),
+})
+
+export type UserSettingsInput = z.infer<typeof UserSettingsSchema>
+
 export const LoginSchema = z.object({
   email: z
     .string({

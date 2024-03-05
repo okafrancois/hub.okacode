@@ -35,6 +35,18 @@ export const {
     },
   },
   callbacks: {
+    async signIn({ user, account }) {
+      if (account?.provider !== 'credentials') return true
+
+      const existingUser = await getUserById(user.id as string)
+
+      // If the user is not verified, prevent them from signing in
+      if (!existingUser?.emailVerified) return false
+
+      // 2FA check
+
+      return true
+    },
     async session({ session, token }) {
       if (token.sub && session.user) {
         session.user.id = token.sub

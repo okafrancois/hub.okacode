@@ -7,7 +7,7 @@ import { apiRoutes, pagesRoutes } from '@/schemas/app-routes'
  * These routes do not require authentication
  * @type {pagesRoutes[]}
  */
-export const publicRoutes: pagesRoutes[] = []
+export const publicRoutes: pagesRoutes[] | apiRoutes[] = []
 
 /**
  * A, array of routes that are used for authentication

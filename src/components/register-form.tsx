@@ -19,9 +19,9 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
-import { register } from '@/actions/register'
 import { pagesRoutes } from '@/schemas/app-routes'
 import SocialAuth from '@/components/social-auth'
+import { register } from '@/actions/auth'
 
 export function RegisterForm() {
   const [success, setSuccess] = React.useState<string | undefined>()
@@ -65,6 +65,7 @@ export function RegisterForm() {
               className={'space-y-6'}
               onSubmit={form.handleSubmit(onSubmit)}
             >
+              <SocialAuth />
               <div className="space-y-4">
                 <FormField
                   control={form.control}
@@ -108,7 +109,9 @@ export function RegisterForm() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel htmlFor={'repeatPassword'}>Password</FormLabel>
+                      <FormLabel htmlFor={'repeatPassword'}>
+                        Repeat password
+                      </FormLabel>
                       <FormControl>
                         <Input
                           disabled={isPending}
@@ -138,8 +141,6 @@ export function RegisterForm() {
                 </Button>
                 <Link href={pagesRoutes.login}>{'Have an account ?'}</Link>
               </div>
-
-              <SocialAuth />
             </form>
           </Form>
         </CardContent>

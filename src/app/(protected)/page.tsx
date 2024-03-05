@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import LogoutForm from '@/components/logout-form'
+import Link from 'next/link'
+import { pagesRoutes } from '@/schemas/app-routes'
 
 export default function Home() {
   return (
@@ -39,6 +41,12 @@ export default function Home() {
           priority
         />
       </div>
+
+      <Link href={pagesRoutes.user_settings}>
+        <span className="mt-8 text-xl font-semibold underline">
+          User Settings
+        </span>
+      </Link>
 
       <LogoutForm />
 
