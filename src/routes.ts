@@ -17,6 +17,7 @@ export const publicRoutes: pagesRoutes[] = []
 export const authRoutes: pagesRoutes[] = [
   pagesRoutes.login,
   pagesRoutes.register,
+  pagesRoutes.auth_error,
 ]
 
 /**

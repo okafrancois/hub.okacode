@@ -21,6 +21,7 @@ import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
 import { register } from '@/actions/register'
 import { pagesRoutes } from '@/schemas/app-routes'
+import SocialAuth from '@/components/social-auth'
 
 export function RegisterForm() {
   const [success, setSuccess] = React.useState<string | undefined>()
@@ -137,6 +138,8 @@ export function RegisterForm() {
                 </Button>
                 <Link href={pagesRoutes.login}>{'Have an account ?'}</Link>
               </div>
+
+              <SocialAuth />
             </form>
           </Form>
         </CardContent>

@@ -7,7 +7,8 @@ export enum apiRoutes {
 
 export enum pagesRoutes {
   base = '/',
-  register = '/register',
-  login = '/login',
+  register = '/auth/register',
+  login = '/auth/login',
+  auth_error = '/auth/error',
   settings = '/settings',
 }

@@ -22,8 +22,14 @@ import Link from 'next/link'
 import { pagesRoutes } from '@/schemas/app-routes'
 import { logUserIn } from '@/actions/login'
 import SocialAuth from '@/components/social-auth'
+import { useSearchParams } from 'next/navigation'
 
 export function LoginForm() {
+  const searchParams = useSearchParams()
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'You already have an account with this email.'
+      : ''
   const [success, setSuccess] = React.useState<string | undefined>()
   const [error, setError] = React.useState<string | undefined>()
   const [isPending, startTransition] = React.useTransition()
@@ -105,7 +111,7 @@ export function LoginForm() {
                 />
               </div>
 
-              <FormError message={error} />
+              <FormError message={error ?? urlError} />
               <FormSuccess message={success} />
 
               <div className="form-actions flex flex-col items-center space-y-4">

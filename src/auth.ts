@@ -4,6 +4,7 @@ import authConfig from '@/auth.config'
 import { db } from '@/lib/prisma'
 import { getUserById } from '@/lib/utils'
 import { USerRole } from '@prisma/client'
+import { pagesRoutes } from '@/schemas/app-routes'
 
 declare module 'next-auth' {
   interface Session {
@@ -21,6 +22,18 @@ export const {
   signIn,
 } = NextAuth({
   adapter: PrismaAdapter(db),
+  pages: {
+    signIn: pagesRoutes.login,
+    error: pagesRoutes.auth_error,
+  },
+  events: {
+    async linkAccount({ user }) {
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      })
+    },
+  },
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {
