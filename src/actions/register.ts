@@ -12,7 +12,7 @@ export const register = async (values: SignUpInput) => {
     throw new Error('Invalid input')
   }
 
-  const { email, password, username } = validatedFields.data
+  const { email, password } = validatedFields.data
   const hashedPassword = await bcrypt.hash(password, 10)
 
   const userWithSameEmail = await getUserByEmail(email)
@@ -21,16 +21,9 @@ export const register = async (values: SignUpInput) => {
     throw new Error('User with same email already exists')
   }
 
-  const userWithSameUsername = await getUserByUsername(username)
-
-  if (userWithSameUsername) {
-    throw new Error('User with same username already exists')
-  }
-
   await db.user.create({
     data: {
       email,
-      username,
       password: hashedPassword,
     },
   })

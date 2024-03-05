@@ -21,6 +21,7 @@ import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
 import { pagesRoutes } from '@/schemas/app-routes'
 import { logUserIn } from '@/actions/login'
+import SocialAuth from '@/components/social-auth'
 
 export function LoginForm() {
   const [success, setSuccess] = React.useState<string | undefined>()
@@ -119,6 +120,7 @@ export function LoginForm() {
                   {"Don't have an account ?"}
                 </Link>
               </div>
+              <SocialAuth />
             </form>
           </Form>
         </CardContent>

@@ -18,14 +18,6 @@ export const LoginSchema = z.object({
 export type LoginInput = z.infer<typeof LoginSchema>
 
 export const SignUpSchema = z.object({
-  username: z
-    .string({
-      required_error: 'Username is required',
-    })
-    .max(15)
-    .regex(/^['a-zA-Z0-9_']+$/, {
-      message: 'Username can only contain letters, numbers, and underscores',
-    }),
   email: z
     .string({
       required_error: 'Email is required',

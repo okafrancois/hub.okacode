@@ -33,7 +33,6 @@ export function RegisterForm() {
       email: '',
       password: '',
       repeatPassword: '',
-      username: '',
     },
   })
   async function onSubmit(values: SignUpInput) {
@@ -66,26 +65,6 @@ export function RegisterForm() {
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <div className="space-y-4">
-                <FormField
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor={'username'}>Username</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isPending}
-                          {...field}
-                          id={'username'}
-                          type={'string'}
-                          placeholder={'Username'}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                  name={'username'}
-                />
-
                 <FormField
                   control={form.control}
                   render={({ field }) => (

@@ -32,3 +32,15 @@ export async function getUserByUsername(
     return null
   }
 }
+
+export async function getUserById(id: string): Promise<User | null> {
+  try {
+    return await db.user.findFirst({
+      where: {
+        id: id,
+      },
+    })
+  } catch {
+    return null
+  }
+}
