@@ -3,15 +3,12 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import authConfig from '@/auth.config'
 import { db } from '@/lib/prisma'
 import { getUserById } from '@/lib/utils'
-import { USerRole } from '@prisma/client'
+import { User, USerRole } from '@prisma/client'
 import { pagesRoutes } from '@/schemas/app-routes'
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      id: string
-      role: USerRole
-    }
+    user: User
   }
 }
 

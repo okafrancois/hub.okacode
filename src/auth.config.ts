@@ -24,7 +24,7 @@ export default {
 
           const user = await getUserByEmail(email)
 
-          if (!user || !user.password) return null
+          if (!user?.password) return null
 
           const passwordMatch = await bcrypt.compare(password, user.password)
 

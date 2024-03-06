@@ -1,20 +1,17 @@
-import { signOut } from '@/auth'
-import { getCurrentUser } from '@/lib/auth'
+import { Button } from '@/components/ui/button'
+import { logUserOut } from '@/actions/auth'
 
-export default async function LogoutForm() {
-  const user = await getCurrentUser()
+export function LogoutForm() {
   return (
-    <div>
-      {JSON.stringify(user)}
-      <form
-        action={async () => {
-          'use server'
-
-          await signOut()
-        }}
-      >
-        <button type="submit">Sign out</button>
-      </form>
-    </div>
+    <Button
+      onClick={async () => {
+        await logUserOut()
+      }}
+      type={'button'}
+      variant={'outline'}
+      className={'w-max'}
+    >
+      Sign out
+    </Button>
   )
 }

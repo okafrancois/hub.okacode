@@ -7,7 +7,7 @@ export default function UnauthenticatedLayout({
   children: React.ReactNode
 }>) {
   return (
-    <div className="container min-h-[100vh] w-full overflow-hidden">
+    <div className="min-h-[100vh] w-full overflow-hidden">
       <nav className={'fixed w-full py-4 flex justify-between'}>
         <Icons.Logo className="w-auto h-10" />
         <ModeToggle />

@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import { useCurrentUser } from '@/hooks/use-current-user'
 
 const profileFormSchema = z.object({
   username: z
@@ -32,9 +33,10 @@ const profileFormSchema = z.object({
     .min(2, {
       message: 'Username must be at least 2 characters.',
     })
-    .max(30, {
+    .max(50, {
       message: 'Username must not be longer than 30 characters.',
-    }),
+    })
+    .optional(),
   email: z
     .string({
       required_error: 'Please select an email to display.',
@@ -62,9 +64,22 @@ const defaultValues: Partial<ProfileFormValues> = {
 }
 
 export function ProfileForm() {
+  const user = useCurrentUser()
+  let values = defaultValues
+
+  if (!user) {
+    return null
+  } else {
+    values = {
+      ...defaultValues,
+      username: user.name,
+      email: user.email,
+    }
+  }
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    defaultValues,
+    values,
     mode: 'onChange',
   })
 

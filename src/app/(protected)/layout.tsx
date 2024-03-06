@@ -1,5 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
+import SideBar from '@/components/side-bar'
 
 export default async function AuthenticatedLayout({
   children,
@@ -8,5 +9,12 @@ export default async function AuthenticatedLayout({
 }>) {
   const session = await auth()
 
-  return <SessionProvider session={session}>{children}</SessionProvider>
+  return (
+    <SessionProvider session={session}>
+      <div className="container-full flex w-[100vw] overflow-hidden h-[100vh]">
+        <SideBar />
+        <main className={'w-full overflow-auto min-h-[100vh]'}>{children}</main>
+      </div>
+    </SessionProvider>
+  )
 }
