@@ -60,3 +60,15 @@ export const SignUpSchema = z.object({
 })
 
 export type SignUpInput = z.infer<typeof SignUpSchema>
+
+export const CollectionSchema = z.object({
+  title: z.string({
+    required_error: 'Title is required',
+  }),
+  description: z.string({
+    required_error: 'Description is required',
+  }),
+  is_private: z.boolean().default(false),
+})
+
+export type CollectionInput = z.infer<typeof CollectionSchema>

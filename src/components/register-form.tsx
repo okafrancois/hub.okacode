@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FormError } from '@/components/form-error'
 import { FormSuccess } from '@/components/form-success'
 import Link from 'next/link'
-import { pagesRoutes } from '@/schemas/app-routes'
+import { PAGE_ROUTES } from '@/schemas/app-routes'
 import SocialAuth from '@/components/social-auth'
 import { register } from '@/actions/auth'
 
@@ -139,7 +139,7 @@ export function RegisterForm() {
                 >
                   Create an account
                 </Button>
-                <Link href={pagesRoutes.login}>{'Have an account ?'}</Link>
+                <Link href={PAGE_ROUTES.login}>{'Have an account ?'}</Link>
               </div>
             </form>
           </Form>

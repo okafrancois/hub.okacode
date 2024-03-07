@@ -4,12 +4,14 @@ import { LoginInput, LoginSchema, SignUpSchema, SignUpInput } from '@/schemas'
 import { signIn, signOut } from '@/auth'
 import { DEFAULT_AUTH_REDIRECT } from '@/routes'
 import { AuthError } from 'next-auth'
-import { getUserByEmail } from '@/lib/utils'
-import { generateVerificationToken } from '@/lib/tokens'
-import { sendVerificationEmail } from '@/lib/mail'
-import { getVerificationTokenByToken } from '@/data/verification-token'
 import bcrypt from 'bcryptjs'
 import { db } from '@/lib/prisma'
+import {
+  getUserByEmail,
+  getVerificationTokenByToken,
+  generateVerificationToken,
+} from '@/lib/user'
+import { sendVerificationEmail } from '@/lib/email'
 
 export const logUserIn = async (values: LoginInput) => {
   const validatedFields = LoginSchema.safeParse(values)

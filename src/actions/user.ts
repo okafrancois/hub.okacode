@@ -1,7 +1,7 @@
-import { getCurrentUser } from '@/lib/auth'
-import { getUserById } from '@/lib/utils'
+import { getUserById } from '@/lib/user'
 import { UserSettingsInput } from '@/schemas'
 import { db } from '@/lib/prisma'
+import { auth } from '@/auth'
 
 export const updateUserSettings = async (values: UserSettingsInput) => {
   const user = await getCurrentUser()
@@ -32,4 +32,10 @@ export const updateUserSettings = async (values: UserSettingsInput) => {
   return {
     success: 'User updated',
   }
+}
+
+export const getCurrentUser = async () => {
+  const session = await auth()
+
+  return session?.user
 }

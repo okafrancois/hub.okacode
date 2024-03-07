@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Icons } from '@/components/icons'
 import { useRouter } from 'next/navigation'
-import { pagesRoutes } from '@/schemas/app-routes'
+import { PAGE_ROUTES } from '@/schemas/app-routes'
 
 type CardProps = React.ComponentProps<typeof Card>
 
@@ -29,7 +29,7 @@ export function ErrorCard({ className, ...props }: CardProps) {
       <CardFooter>
         <Button
           onClick={() => {
-            router.push(pagesRoutes.login)
+            router.push(PAGE_ROUTES.login)
           }}
         >
           <Icons.Back /> Back to login

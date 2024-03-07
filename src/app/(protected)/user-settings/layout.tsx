@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import { Separator } from '@/components/ui/separator'
 import { SidebarNav } from '@/app/(protected)/user-settings/_components/sidebar-nav'
-import { pagesRoutes } from '@/schemas/app-routes'
+import { PAGE_ROUTES } from '@/schemas/app-routes'
 export const metadata: Metadata = {
   title: 'Forms',
   description: 'Advanced form example using react-hook-form and Zod.',
@@ -11,15 +11,15 @@ export const metadata: Metadata = {
 const sidebarNavItems = [
   {
     title: 'Profile',
-    href: pagesRoutes.user_settings,
+    href: PAGE_ROUTES.user_settings,
   },
   {
     title: 'Account',
-    href: pagesRoutes.user_settings_account,
+    href: PAGE_ROUTES.user_settings_account,
   },
   {
     title: 'Notifications',
-    href: pagesRoutes.user_settings_notifications,
+    href: PAGE_ROUTES.user_settings_notifications,
   },
 ]
 

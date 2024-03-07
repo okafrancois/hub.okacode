@@ -40,23 +40,25 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  username      String?     @unique @db.VarChar(15)
-  email         String?     @unique
+  username      String?      @unique @db.VarChar(15)
+  email         String?      @unique
   emailVerified DateTime?
   password      String?
-  role          USerRole    @default(USER)
+  role          USerRole     @default(USER)
   image         String?
   accounts      Account[]
   sessions      Session[]
-  bio           String?     @db.Text
+  bio           String?      @db.Text
   urls          SocialUrl[]
+  Collection    Collection[]
+  Ressource     Ressource[]
 }
 
 model SocialUrl {
   id     String     @id @default(cuid())
-  name   String
+  url    String
   type   SocialType
   User   User?      @relation(fields: [userId], references: [id])
   userId String?
@@ -78,4 +80,42 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([email, token])
+}
+
+model Collection {
+  id          String      @id @default(cuid())
+  title       String
+  description String?     @db.Text
+  author      User        @relation(fields: [authorId], references: [id])
+  authorId    String
+  visibility  Visibility  @default(PUBLIC)
+  Ressource   Ressource[]
+  createdAt   DateTime    @default(now())
+}
+
+model Ressource {
+  id           String     @id @default(cuid())
+  title        String
+  url          String
+  icon         String?
+  description  String?    @db.Text
+  author       User       @relation(fields: [authorId], references: [id])
+  authorId     String
+  visibility   Visibility @default(PUBLIC)
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId String
+  cags         Tag[]
+  createdAt    DateTime   @default(now())
+}
+
+model Tag {
+  id          String     @id @default(cuid())
+  name        String
+  Ressource   Ressource? @relation(fields: [ressourceId], references: [id])
+  ressourceId String?
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
 }

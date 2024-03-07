@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
-import authConfig from '@/auth.config'
 import { db } from '@/lib/prisma'
-import { getUserById } from '@/lib/utils'
 import { User, USerRole } from '@prisma/client'
-import { pagesRoutes } from '@/schemas/app-routes'
+import { PAGE_ROUTES } from '@/schemas/app-routes'
+import { getUserById } from '@/lib/user'
+import authConfig from '@/auth.config'
 
 declare module 'next-auth' {
   interface Session {
@@ -20,8 +20,8 @@ export const {
 } = NextAuth({
   adapter: PrismaAdapter(db),
   pages: {
-    signIn: pagesRoutes.login,
-    error: pagesRoutes.auth_error,
+    signIn: PAGE_ROUTES.login,
+    error: PAGE_ROUTES.auth_error,
   },
   events: {
     async linkAccount({ user }) {
@@ -40,12 +40,20 @@ export const {
       // If the user is not verified, prevent them from signing in
       if (!existingUser?.emailVerified) return false
 
-      // 2FA check
-
       return true
     },
     async session({ session, token }) {
       if (token.sub && session.user) {
+        const existingUser = await getUserById(token.sub)
+
+        if (existingUser) {
+          session.user = {
+            ...session.user,
+            bio: existingUser.bio ?? '',
+            username: existingUser.username ?? 'testusername',
+          }
+        }
+
         session.user.id = token.sub
       }
 
@@ -64,6 +72,7 @@ export const {
       }
 
       token.role = existingUser.role
+      token.bio = existingUser.bio
 
       return token
     },

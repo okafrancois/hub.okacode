@@ -13,7 +13,9 @@ export default async function AuthenticatedLayout({
     <SessionProvider session={session}>
       <div className="container-full flex w-[100vw] overflow-hidden h-[100vh]">
         <SideBar />
-        <main className={'w-full overflow-auto min-h-[100vh]'}>{children}</main>
+        <main className={'w-full overflow-auto min-h-[100vh] bg-muted'}>
+          {children}
+        </main>
       </div>
     </SessionProvider>
   )

@@ -1,8 +1,8 @@
 import CollectionForm from '@/components/collection-form'
 
-export default function Home() {
+export default function NewCollectionPage() {
   return (
-    <div>
+    <div className={'container py-[2rem]'}>
       <CollectionForm />
     </div>
   )

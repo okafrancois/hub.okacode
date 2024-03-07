@@ -28,58 +28,27 @@ import { Button } from '@/components/ui/button'
 import { useCurrentUser } from '@/hooks/use-current-user'
 
 const profileFormSchema = z.object({
-  username: z
-    .string()
-    .min(2, {
-      message: 'Username must be at least 2 characters.',
-    })
-    .max(50, {
-      message: 'Username must not be longer than 30 characters.',
-    })
-    .optional(),
-  email: z
-    .string({
-      required_error: 'Please select an email to display.',
-    })
-    .email(),
-  bio: z.string().max(160).min(4),
+  username: z.string().min(3).max(30).optional(),
+  email: z.string().email(),
+  bio: z.string().max(160).optional(),
   urls: z
-    .array(
-      z.object({
-        value: z.string().url({ message: 'Please enter a valid URL.' }),
-      })
-    )
+    .array(z.object({ title: z.string(), value: z.string().url() }))
     .optional(),
 })
 
 type ProfileFormValues = z.infer<typeof profileFormSchema>
 
-// This can come from your database or API.
-const defaultValues: Partial<ProfileFormValues> = {
-  bio: 'I own a computer.',
-  urls: [
-    { value: 'https://shadcn.com' },
-    { value: 'https://twitter.com/shadcn' },
-  ],
-}
-
 export function ProfileForm() {
   const user = useCurrentUser()
-  let values = defaultValues
-
-  if (!user) {
-    return null
-  } else {
-    values = {
-      ...defaultValues,
-      username: user.name,
-      email: user.email,
-    }
-  }
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
-    values,
+    defaultValues: {
+      username: user?.username,
+      email: user?.email,
+      bio: user?.bio,
+      urls: [],
+    } as ProfileFormValues,
     mode: 'onChange',
   })
 

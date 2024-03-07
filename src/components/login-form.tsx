@@ -18,10 +18,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { FormError } from '@/components/form-error'
 import Link from 'next/link'
-import { pagesRoutes } from '@/schemas/app-routes'
 import SocialAuth from '@/components/social-auth'
 import { useSearchParams } from 'next/navigation'
 import { logUserIn } from '@/actions/auth'
+import { PAGE_ROUTES } from '@/schemas/app-routes'
 
 export function LoginForm() {
   const searchParams = useSearchParams()
@@ -118,7 +118,7 @@ export function LoginForm() {
                 >
                   Login
                 </Button>
-                <Link href={pagesRoutes.register}>
+                <Link href={PAGE_ROUTES.register}>
                   {"Don't have an account ?"}
                 </Link>
               </div>
