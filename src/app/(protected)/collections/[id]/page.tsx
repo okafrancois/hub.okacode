@@ -1,6 +1,7 @@
 import { deleteCollection, getCollection } from '@/actions/collections'
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -8,8 +9,13 @@ import {
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { PAGE_ROUTES } from '@/schemas/app-routes'
-import { Collection } from '@prisma/client'
+import { Collection, Ressource } from '@prisma/client'
 import DeleteCollectionButton from '@/components/DeleteCollectionButton'
+import AddRessource from '@/components/add-ressource'
+import { SeparatorHorizontal } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import { getResourcesByCollection } from '@/actions/ressources'
+import RessourceItem from '@/app/(protected)/collections/_components/ressource-item'
 
 type PageProps = {
   params: {
@@ -19,6 +25,7 @@ type PageProps = {
 export default async function CollectionPage({ params }: Readonly<PageProps>) {
   if (!params.id) return null
   const collection = await getCollection(params.id)
+  const ressources = await getResourcesByCollection(params.id)
 
   if (!collection) return null
 
@@ -38,6 +45,17 @@ export default async function CollectionPage({ params }: Readonly<PageProps>) {
           <DeleteCollectionButton id={collection.id} />
         </div>
       </CardHeader>
+      <CardContent>
+        <div className="actions flex gap-x-2">
+          <AddRessource />
+        </div>
+        <Separator className={'my-4'} />
+        <div className="ressources">
+          {ressources.map((ressource: Ressource) => (
+            <RessourceItem data={ressource} key={ressource.id} />
+          ))}
+        </div>
+      </CardContent>
     </Card>
   )
 }

@@ -140,7 +140,7 @@ export default function CollectionForm({
                 variant="outline"
                 onClick={() => {
                   form.reset()
-                  router.push(PAGE_ROUTES.base)
+                  router.back()
                 }}
               >
                 Cancel

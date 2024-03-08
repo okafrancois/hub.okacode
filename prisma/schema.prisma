@@ -95,14 +95,12 @@ model Collection {
 
 model Ressource {
   id           String     @id @default(cuid())
-  title        String
   url          String
   icon         String?
   description  String?    @db.Text
-  visibility   Visibility @default(PUBLIC)
   collection   Collection @relation(fields: [collectionId], references: [id])
   collectionId String
-  cags         Tag[]
+  tags         Tag[]
   createdAt    DateTime   @default(now())
 }
 

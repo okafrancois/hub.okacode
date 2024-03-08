@@ -27,7 +27,11 @@ export const postCollection = async (values: CollectionInput) => {
         ? Visibility.PRIVATE
         : Visibility.PUBLIC,
       description: validValues.data.description,
-      authorId: currentUser.id,
+      author: {
+        connect: {
+          id: currentUser.id,
+        },
+      },
       authorUsername: currentUser.username ?? currentUser.name ?? 'Anonymous',
     },
   })

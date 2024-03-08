@@ -72,3 +72,12 @@ export const CollectionSchema = z.object({
 })
 
 export type CollectionInput = z.infer<typeof CollectionSchema>
+
+export const RessourceSchema = z.object({
+  url: z.string().url(),
+  description: z.string().optional(),
+  tags: z.string().optional(),
+  collectionId: z.string(),
+})
+
+export type RessourceInput = z.infer<typeof RessourceSchema>
