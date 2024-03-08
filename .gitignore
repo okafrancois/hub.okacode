@@ -21,6 +21,7 @@
 *.pem
 .idea
 /prisma/dev.db
+docker-compose.yml
 
 # debug
 npm-debug.log*

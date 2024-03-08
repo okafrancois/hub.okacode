@@ -59,11 +59,10 @@ export const logUserIn = async (values: LoginInput) => {
     })
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return { error: 'Invalid credentials' }
-        default:
-          return { error: 'An error occurred' }
+      if (error.type === 'CredentialsSignin') {
+        return { error: 'Invalid credentials' }
+      } else {
+        return { error: 'An error occurred' }
       }
     }
 

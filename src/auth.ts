@@ -25,6 +25,10 @@ export const {
   },
   events: {
     async linkAccount({ user }) {
+      if (!user.id) {
+        throw new Error('User not found')
+      }
+
       await db.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
@@ -38,9 +42,7 @@ export const {
       const existingUser = await getUserById(user.id as string)
 
       // If the user is not verified, prevent them from signing in
-      if (!existingUser?.emailVerified) return false
-
-      return true
+      return !!existingUser?.emailVerified
     },
     async session({ session, token }) {
       if (token.sub && session.user) {

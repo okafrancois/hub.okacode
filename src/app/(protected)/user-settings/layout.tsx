@@ -27,7 +27,9 @@ interface SettingsLayoutProps {
   children: React.ReactNode
 }
 
-export default function SettingsLayout({ children }: SettingsLayoutProps) {
+export default function SettingsLayout({
+  children,
+}: Readonly<SettingsLayoutProps>) {
   return (
     <>
       <div className="md:hidden">

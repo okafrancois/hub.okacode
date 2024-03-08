@@ -1,7 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -54,7 +53,6 @@ model User {
   bio           String?      @db.Text
   urls          SocialUrl[]
   Collection    Collection[]
-  Ressource     Ressource[]
 }
 
 model SocialUrl {
@@ -84,14 +82,15 @@ model VerificationToken {
 }
 
 model Collection {
-  id          String      @id @default(cuid())
-  title       String
-  description String?     @db.Text
-  author      User        @relation(fields: [authorId], references: [id])
-  authorId    String
-  visibility  Visibility  @default(PUBLIC)
-  Ressource   Ressource[]
-  createdAt   DateTime    @default(now())
+  id             String      @id @default(cuid())
+  title          String
+  description    String?     @db.Text
+  author         User        @relation(fields: [authorId], references: [id])
+  authorId       String
+  authorUsername String
+  visibility     Visibility  @default(PUBLIC)
+  Ressource      Ressource[]
+  createdAt      DateTime    @default(now())
 }
 
 model Ressource {
@@ -100,8 +99,6 @@ model Ressource {
   url          String
   icon         String?
   description  String?    @db.Text
-  author       User       @relation(fields: [authorId], references: [id])
-  authorId     String
   visibility   Visibility @default(PUBLIC)
   collection   Collection @relation(fields: [collectionId], references: [id])
   collectionId String

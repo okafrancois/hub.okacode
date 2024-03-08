@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma-studio": "npx prisma studio"
+    "prisma-studio": "npx prisma studio",
+    "start:database": "docker-compose up -d"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^1.4.0",

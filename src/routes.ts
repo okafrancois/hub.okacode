@@ -37,4 +37,4 @@ export const apiAuthPrefix: ApiRoute = API_ROUTES.base_auth
  * Routes that start with this prefix are used for api routes
  * @type {PageRoute}
  */
-export const DEFAULT_AUTH_REDIRECT: PageRoute = PAGE_ROUTES.base
+export const DEFAULT_AUTH_REDIRECT: string = PAGE_ROUTES.base

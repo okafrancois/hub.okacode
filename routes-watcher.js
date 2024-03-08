@@ -32,7 +32,7 @@ function initializeRoutes() {
 }
 
 const watcher = chokidar.watch('src/app', {
-  ignored: /(^|[\/\\])\../, // ignore dotfiles
+  ignored: /(^|[/\\])\../, // ignore dotfiles
   persistent: true,
 })
 

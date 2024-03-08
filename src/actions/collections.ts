@@ -28,6 +28,7 @@ export const postCollection = async (values: CollectionInput) => {
         : Visibility.PUBLIC,
       description: validValues.data.description,
       authorId: currentUser.id,
+      authorUsername: currentUser.username ?? currentUser.name ?? 'Anonymous',
     },
   })
 
@@ -77,4 +78,14 @@ export const getCollection = async (id: string) => {
       id,
     },
   })
+}
+
+export const deleteCollection = async (id: string) => {
+  await db.collection.delete({
+    where: {
+      id,
+    },
+  })
+
+  redirect(PAGE_ROUTES.my_collections)
 }

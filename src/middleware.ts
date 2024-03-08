@@ -6,18 +6,20 @@ import {
   DEFAULT_AUTH_REDIRECT,
   publicRoutes,
 } from '@/routes'
-import { PAGE_ROUTES } from '@/schemas/app-routes'
+import { ApiRoute, PAGE_ROUTES, PageRoute } from '@/schemas/app-routes'
 
 const { auth } = NextAuth(authConfig)
 export default auth((req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname as PAGE_ROUTES)
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
+  const isAuthRoute = authRoutes.includes(nextUrl.pathname as PageRoute)
+  const isPublicRoute = publicRoutes.includes(
+    nextUrl.pathname as PageRoute & ApiRoute
+  )
 
   if (isApiAuthRoute) {
-    return null
+    return
   }
 
   if (isAuthRoute) {
@@ -25,7 +27,7 @@ export default auth((req) => {
       return Response.redirect(new URL(DEFAULT_AUTH_REDIRECT, nextUrl))
     }
 
-    return null
+    return
   }
 
   if (!isLoggedIn && !isPublicRoute) {
