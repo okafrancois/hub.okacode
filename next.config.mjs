@@ -2,6 +2,11 @@
 const nextConfig = {
   experimental: {
     typedRoutes: true,
+  },
+  images: {
+    domains: [],
+    remotePatterns: [
+    ],
   }
 };
 

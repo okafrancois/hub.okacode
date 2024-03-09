@@ -7,8 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { LinkIcon } from 'lucide-react'
-import Image from 'next/image'
+import RessourceActions from '@/app/(protected)/collections/_components/ressources-actions'
 
 interface CollectionItemProps {
   data: Ressource
@@ -20,23 +19,18 @@ export default function RessourceItem({
     <Card
       className={'flex bg-card text-card-foreground border-none shadow-none'}
     >
-      <CardHeader className={'p-0'}>
-        <a
-          href={data.url}
-          className="icon text-primary p-2 rounded-full border border-gray-300"
-        >
-          {data.icon ? (
-            <img
-              className={'w-4 h-4'}
-              src={data.icon ?? ''}
-              alt={'Link icon'}
-            />
-          ) : (
-            <LinkIcon className="h-5 w-5" />
-          )}
-        </a>
+      <CardHeader className={'p-0 space-y-0 flex-row items-start'}>
+        <div className="actions gap-x-2 flex items-center">
+          <RessourceActions data={data} />
+          <a
+            href={data.url}
+            className="icon text-primary aspect-square p-2 rounded-full border border-gray-300"
+          >
+            <img className={'w-5 h-5'} src={data.icon ?? ''} alt={'Icon'} />
+          </a>
+        </div>
       </CardHeader>
-      <CardContent className={'space-y-4'}>
+      <CardContent className={'relative space-y-4 pl-2'}>
         <div className={'spacey-2'}>
           <CardTitle className={'text-md'}>
             <a href={data.url}>{data.url}</a>

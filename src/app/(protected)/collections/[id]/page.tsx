@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { PAGE_ROUTES } from '@/schemas/app-routes'
 import { Collection, Ressource } from '@prisma/client'
 import DeleteCollectionButton from '@/components/DeleteCollectionButton'
-import AddRessource from '@/components/add-ressource'
+import RessourceForm from '@/components/ressource-form'
 import { SeparatorHorizontal } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { getResourcesByCollection } from '@/actions/ressources'
@@ -46,9 +46,7 @@ export default async function CollectionPage({ params }: Readonly<PageProps>) {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="actions flex gap-x-2">
-          <AddRessource />
-        </div>
+        <RessourceForm />
         <Separator className={'my-4'} />
         <div className="ressources">
           {ressources.map((ressource: Ressource) => (

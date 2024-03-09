@@ -94,6 +94,7 @@ export async function updateResource(id: string, values: RessourceInput) {
 }
 
 export async function deleteResource(id: string) {
+  console.log('deleteResource', id)
   return db.ressource.delete({
     where: {
       id,
